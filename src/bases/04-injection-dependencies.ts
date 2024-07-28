@@ -1,5 +1,5 @@
 import { Move, PokeapiResponse } from '../interfaces/pokeapi-response.interface';
-import { PokeApiAdapter } from '../api/pokeApi.adapter';
+import { HttpAdapter, PokeAxiosAdapter, PokeFetchAdapter } from '../api/pokeApi.adapter';
 
 export class Pokemon {
 
@@ -10,7 +10,7 @@ export class Pokemon {
     constructor(
         public readonly id: number, 
         public name: string,
-        private readonly http: PokeApiAdapter
+        private readonly http: HttpAdapter
     ) {}
 
     scream() {
@@ -24,7 +24,7 @@ export class Pokemon {
     async getMoves(): Promise<Move[]> {
 
       // inyeccion de dependencias.
-     const data  = await this.http.get('https://pokeapi.co/api/v2/pokemon/4')
+     const data  = await this.http.get<PokeapiResponse>('https://pokeapi.co/api/v2/pokemon/4')
        
       console.log(data.moves);
         
@@ -32,7 +32,12 @@ export class Pokemon {
     }
 
 }
-const pokeApi = new PokeApiAdapter();
-export const charmander = new Pokemon( 4, 'Charmander',pokeApi);
+
+// elegimos de que forma va abtener los movimientos de ese pokemon.
+const pokeApi = new PokeAxiosAdapter();
+const pokeApi2 = new PokeFetchAdapter();
+
+// inyectamos la forma en el constructor
+export const charmander = new Pokemon(4, 'Charmander', pokeApi);
 
 charmander.getMoves();
