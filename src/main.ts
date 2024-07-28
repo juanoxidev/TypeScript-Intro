@@ -3,7 +3,7 @@ import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 import {pokemon,  pokemonDefinido, pokemons} from './bases/02-obj.ts'
-import { charmander } from './bases/04-injection-dependencies.ts'
+import { charmander } from './bases/06-decoratos2.ts'
 //import { name, age } from './bases/01-types.ts'
 
 
