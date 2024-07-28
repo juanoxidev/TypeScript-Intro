@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { PokeapiResponse, Move } from '../interfaces/pokeapi-response.interface';
 
 export class Pokemon {
   
@@ -45,11 +46,14 @@ public speak(): void {
     
     // metodo asincrono que regresa una promesa: Es devolver lo que estamos indicando que va a devolver. Tiene un estado y un resultado.
   
-  async getMoves() {
+  async getMoves(): Promise<Move[]> {
     // dentro de una funcion o metodo asincrono, espera a que esta promesa se resuelva y lo que sea que reseuelva lo asigna a la resp.
-     // desestructuracion de la respuesta de la api, saca la data de la resp.
-    const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon/4');
+    // desestructuracion de la respuesta de la api, saca la data de la resp.
+    // 
+    const { data } = await axios.get<PokeapiResponse>('https://pokeapi.co/api/v2/pokemon/4');
 
+    // typescript no sabe que tipo de dato es el de data.moves, data puede ser del tipo any.Podemos tipar la respuesta de axios al agregarle un tipo entre los <> axios.get<>
+    
     console.log(data.moves);
     return data.moves;
   }
