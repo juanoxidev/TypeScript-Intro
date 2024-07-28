@@ -49,3 +49,8 @@ export const pokemonDefinido3: Pokemon = {
   name: 'bulbasour',
   age:25
 }
+
+export const pokemons: Pokemon[] = []
+
+pokemons.push(pokemonDefinido3, pokemonDefinido)
+console.log(pokemons)
